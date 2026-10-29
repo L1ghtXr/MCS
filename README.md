@@ -1,5 +1,13 @@
 # ⚡ MCS — Minecraft Server Stress Testing Toolkit
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Minecraft-Server%20Testing-green?style=for-the-badge" alt="Minecraft">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20Termux-lightgrey?style=for-the-badge" alt="Platform">
+</p>
+
+<p align="center">
+
 ```text
 ███╗   ███╗ ██████╗███████╗
 ████╗ ████║██╔════╝██╔════╝
@@ -8,152 +16,244 @@
 ██║ ╚═╝ ██║╚██████╗███████║
 ╚═╝     ╚═╝ ╚═════╝╚══════╝
 
-Minecraft Server Stress Testing Toolkit
-             Developed by DevBrezz
+      Minecraft Server Stress Testing Toolkit
+                 by L1ghtXr
+          Contributions by DevBrezz
 ```
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20Termux-blue.svg)](#-platform)
-[![Developer](https://img.shields.io/badge/developer-DevBrezz-purple.svg)](#-developer)
+</p>
 
-> **MCS is designed for authorized Minecraft server stress and resilience testing. Only test servers you own or have explicit permission to test.**
+> **MCS is intended for authorized Minecraft server stress, resilience, and performance testing. Only test systems you own or have explicit permission to test.**
+
+---
 
 ## 📖 Overview
 
-MCS is a Minecraft server stress-testing toolkit designed to help server owners and developers evaluate server behavior under controlled network and application load.
+**MCS** is a Minecraft-focused stress-testing toolkit designed for controlled testing of server behavior under increased network and application load.
 
-It can be used to:
+It can help server owners and developers:
 
 - Evaluate server capacity.
 - Identify performance bottlenecks.
-- Test connection handling.
-- Test protocol handling.
-- Evaluate rate limiting and protection systems.
-- Measure server stability under increasing load.
-- Perform controlled development and staging tests.
-- Help determine safe server capacity limits.
+- Test connection and protocol handling.
+- Validate rate-limiting and protection configurations.
+- Observe server behavior under controlled load.
+- Compare performance between configurations.
+- Perform development and staging resilience tests.
+
+MCS is designed for **authorized testing**, not unauthorized disruption of third-party infrastructure.
+
+---
 
 ## ✨ Features
 
 ### Layer 4 — UDP
 
-| Method | Description |
+| Method | Purpose |
 |---|---|
 | `UDP SPAM` | Tests UDP packet handling under increased traffic. |
-| `UDP HANDSHAKE FLOOD` | Tests handshake processing capacity. |
-| `UDP QUERY FLOOD` | Tests UDP query handling and response capacity. |
+| `UDP HANDSHAKE FLOOD` | Tests handshake processing behavior. |
+| `UDP QUERY FLOOD` | Tests UDP query handling and response behavior. |
 
 ### Layer 4 — TCP
 
-| Method | Description |
+| Method | Purpose |
 |---|---|
 | `TCP CONNECT FLOOD` | Tests TCP connection handling capacity. |
-| `TCP JOIN FLOOD` | Tests connection/join processing behavior. |
+| `TCP JOIN FLOOD` | Tests join/connection processing behavior. |
 | `TCP LOGIN FLOOD` | Tests login processing under increased connection load. |
 
 ### Layer 7 — HTTP
 
-| Method | Description |
+| Method | Purpose |
 |---|---|
 | `HTTP STATUS FLOOD` | Tests HTTP status endpoint handling. |
 | `HTTP QUERY FLOOD` | Tests HTTP query/request handling. |
 
+> The exact available methods depend on the current project build and configuration.
+
+---
+
 ## 🎚️ Stress Levels
 
-| Level | Name | Purpose |
-|---:|---|---|
-| `1` | 🟢 LOW | Basic smoke and compatibility testing |
-| `2` | 🟡 MEDIUM | Normal performance testing |
-| `3` | 🟠 HIGH | High-load capacity testing |
-| `4` | 🔴 CRITICAL | Controlled maximum-capacity testing |
+MCS uses four logical stress levels:
 
-The level number does **not** represent a guaranteed packet-per-second value. Actual traffic depends on network bandwidth, CPU, server software, configuration, latency, firewall/rate limits, operating system, and MCS configuration.
+| Level | Classification | Intended Use |
+|:---:|---|---|
+| `1` | 🟢 **LOW** | Smoke testing and basic validation |
+| `2` | 🟡 **MEDIUM** | Normal performance testing |
+| `3` | 🟠 **HIGH** | High-load capacity testing |
+| `4` | 🔴 **CRITICAL** | Controlled limit/boundary testing |
 
-Always start at **LOW** and increase gradually.
+### Important
+
+A stress level is a **classification**, not a guaranteed PPS/RPS value.
+
+Actual traffic depends on the test method, configuration, network, CPU, bandwidth, latency, server software, firewall, rate limits, and other infrastructure factors.
+
+**Recommended progression:**
+
+```text
+LOW → MEDIUM → HIGH → CRITICAL
+```
+
+Start low and increase gradually while monitoring the server.
+
+---
 
 ## ⚙️ How It Works
 
+At a high level, MCS follows this workflow:
+
 ```text
-                    ┌──────────────────┐
-                    │   MCS Controller │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    ┌──────────────────┐
-                    │ Select Test      │
-                    │ Method + Level   │
-                    └────────┬─────────┘
-                             │
-                  ┌──────────┼──────────┐
-                  ▼          ▼          ▼
-                UDP         TCP        HTTP
-                  │          │          │
-                  └──────────┼──────────┘
-                             ▼
-                    ┌──────────────────┐
-                    │ Minecraft Server │
-                    └────────┬─────────┘
-                             │
-                             ▼
-                    Monitor Performance
-                             │
-                             ▼
-                    Analyze Test Results
+                 ┌────────────────────┐
+                 │    MCS Controller  │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │ Select Method      │
+                 │ + Stress Level     │
+                 └─────────┬──────────┘
+                           │
+              ┌────────────┼────────────┐
+              ▼            ▼            ▼
+             UDP          TCP          HTTP
+              │            │            │
+              └────────────┼────────────┘
+                           ▼
+                 ┌────────────────────┐
+                 │ Minecraft Server   │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │ Observe Metrics    │
+                 └─────────┬──────────┘
+                           │
+                           ▼
+                 ┌────────────────────┐
+                 │ Analyze Results    │
+                 └────────────────────┘
 ```
 
-During testing, administrators can monitor CPU, RAM, network throughput, latency, connection count, timeouts, errors, tick performance, and overall stability.
+During an authorized test, operators should monitor:
 
-## 🖥️ Platform
+- CPU utilization
+- Memory utilization
+- Network throughput
+- Latency
+- Connection behavior
+- Timeout/error rates
+- Server tick performance
+- Overall stability
 
-MCS is intended for environments such as:
-
-- Linux
-- Windows
-- Termux / Android
-- VPS
-- Dedicated servers
-- Local development environments
-- Minecraft testing laboratories
+---
 
 ## 🚀 Installation
 
 Clone the repository:
 
 ```bash
-git clone https://github.com/DevBrezz/MCS.git
+git clone https://github.com/L1ghtXr/MCS.git
 cd MCS
 ```
 
-Install the dependencies required by the current project build, then start MCS using its configured entry point.
+Install the dependencies required by the current project build.
 
-### Termux
+For Node.js projects:
+
+```bash
+npm install
+```
+
+For Python projects:
+
+```bash
+pip install -r requirements.txt
+```
+
+> Use the dependency and start commands that match the runtime files included in your release.
+
+---
+
+## 📱 Termux
+
+MCS can be used in a Termux testing environment when the required runtime is supported by the current build.
+
+Install Git:
 
 ```bash
 pkg update
 pkg upgrade
 pkg install git
-git clone https://github.com/DevBrezz/MCS.git
+```
+
+Clone the repository:
+
+```bash
+git clone https://github.com/L1ghtXr/MCS.git
 cd MCS
 ```
 
-## 🧪 Recommended Testing Procedure
+Install the project's required runtime and dependencies, then launch MCS using the configured entry point.
 
-Use a dedicated testing or staging server.
+---
 
-1. Prepare the Minecraft test server and monitoring.
-2. Start with `LOW`.
-3. Observe CPU, RAM, network, latency, connections, errors, and TPS/tick performance.
-4. Increase gradually: `LOW → MEDIUM → HIGH → CRITICAL`.
-5. Stop immediately if the server becomes unstable.
+## 🧪 Recommended Testing Workflow
+
+### 1. Prepare a dedicated test server
+
+Prefer:
+
+- Local Minecraft server
+- Development server
+- Staging server
+- Dedicated test VPS
+
+### 2. Start at LOW
+
+Run a short, low-intensity test and establish a baseline.
+
+### 3. Monitor the server
+
+Track:
+
+```text
+CPU
+RAM
+Network
+Latency
+Connections
+Timeouts
+Errors
+TPS / Tick Performance
+```
+
+### 4. Increase gradually
+
+```text
+LOW
+  ↓
+MEDIUM
+  ↓
+HIGH
+  ↓
+CRITICAL
+```
+
+Stop the test if the environment becomes unstable or normal users/services are affected.
+
+---
 
 ## 📊 Example Test Report
 
 ```text
 ========================================
-           MCS TEST REPORT
+             MCS TEST REPORT
 ========================================
 
-Target:        Minecraft Test Server
+Target:        Authorized Test Server
 Method:        TCP LOGIN FLOOD
 Level:         MEDIUM
 Duration:      60 seconds
@@ -170,41 +270,78 @@ Result:        STABLE
 ========================================
 ```
 
-## 🛡️ Responsible Usage
+Keep test reports so different server configurations can be compared.
+
+---
+
+## 🛡️ Responsible Use
 
 MCS is intended for:
 
-- Your own Minecraft server.
-- Your own VPS.
+- Servers you own.
+- Infrastructure you administer.
 - Local testing environments.
-- Development servers.
-- Staging environments.
-- Authorized security/performance assessments.
+- Development/staging environments.
+- Authorized security or performance assessments.
 
-Do **not** use MCS against systems you do not own or have permission to test.
+Do **not** use MCS against systems without permission.
 
-Unauthorized traffic generation can cause service disruption and may violate laws, provider policies, or terms of service.
+Unauthorized traffic generation can cause service disruption and may violate laws, hosting-provider policies, or terms of service.
 
-**You are responsible for how you use this software.**
+**The user is responsible for ensuring every test is authorized.**
+
+---
+
+## 🧠 Best Practices
+
+- Start with the lowest stress level.
+- Use a dedicated testing environment whenever possible.
+- Monitor the server continuously.
+- Increase load gradually.
+- Change one major variable at a time.
+- Record CPU, memory, network, and latency results.
+- Stop testing when instability appears.
+- Never test third-party infrastructure without explicit authorization.
+
+---
 
 ## 🤝 Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidelines.
+Contributions are welcome.
+
+Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before submitting changes.
+
+### Project Credits
+
+- **Original project / primary developer:** **L1ghtXr**
+- **Contributor:** **DevBrezz**
+
+All contributors are expected to follow the project's responsible-use guidelines.
+
+---
 
 ## 📜 License
 
-MCS is released under the **MIT License**. See [`LICENSE`](LICENSE).
+MCS is distributed under the **MIT License**.
 
-## 👨‍💻 Developer
+See [`LICENSE`](LICENSE) for the complete license text.
 
-**DevBrezz**
+---
 
-Minecraft tooling • Server testing • Development
+## 👨‍💻 Credits
+
+### L1ghtXr
+Original developer and project creator.
+
+### DevBrezz
+Contributor and project improvements/documentation.
+
+---
 
 ## ⚠️ Disclaimer
 
-MCS is provided for legitimate testing, development, research, and authorized security/performance assessment.
+MCS is provided for legitimate testing, development, research, and authorized performance/resilience assessment.
 
-The developer does not authorize or encourage unauthorized disruption of third-party systems.
+The project does not authorize or encourage unauthorized disruption of third-party systems.
 
 **Only test systems you own or have explicit permission to test.**

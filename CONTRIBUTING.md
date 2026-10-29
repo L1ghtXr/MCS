@@ -1,24 +1,30 @@
 # Contributing to MCS
 
-Thank you for your interest in contributing to **MCS**.
+Thank you for contributing to **MCS**.
 
-MCS is maintained by **DevBrezz**. Contributions that improve reliability, documentation, compatibility, performance, and testing are welcome.
+MCS is originally created and maintained by **L1ghtXr**, with contributions from **DevBrezz** and the wider community.
 
-## Before Contributing
+We welcome improvements to reliability, compatibility, documentation, testing, and developer experience.
 
-Please make sure your contribution:
+---
+
+## 📋 Contribution Guidelines
+
+Before submitting a contribution, please make sure that it:
 
 - Has a clear purpose.
 - Does not intentionally introduce malicious functionality.
 - Does not target unauthorized third-party infrastructure.
-- Does not expose private information.
+- Does not expose credentials, secrets, or private information.
 - Does not unnecessarily break existing functionality.
 - Includes documentation when appropriate.
-- Has been tested before submission.
+- Has been tested in an authorized environment.
 
-## Bug Reports
+---
 
-Include:
+## 🐛 Bug Reports
+
+When reporting a bug, provide:
 
 1. Operating system
 2. Runtime/version
@@ -26,28 +32,60 @@ Include:
 4. Steps to reproduce
 5. Expected behavior
 6. Actual behavior
-7. Relevant logs or errors
+7. Relevant logs or error messages
 
-## Feature Requests
+Example:
 
-Explain:
+```text
+OS: Linux
+Runtime: <version>
+MCS Version: <version>
+
+Problem:
+Describe the issue.
+
+Steps:
+1. Start MCS
+2. Select the affected method
+3. Run the authorized test
+4. Observe the problem
+
+Expected:
+Describe the expected result.
+
+Actual:
+Describe what actually happened.
+```
+
+Please remove credentials, IP addresses, tokens, or other private information before posting logs.
+
+---
+
+## 💡 Feature Requests
+
+Feature requests should explain:
 
 - What problem the feature solves.
-- Why it is useful.
-- How it should work.
+- Why it would be useful.
+- How the feature should behave.
 - Whether it affects existing functionality.
+- Any compatibility considerations.
 
-## Pull Requests
+---
 
-Before opening a pull request:
+## 🔧 Pull Requests
 
-1. Fork the repository.
-2. Create a branch.
-3. Make your changes.
-4. Test your changes.
-5. Update documentation if needed.
-6. Commit your changes.
-7. Open a Pull Request.
+Recommended workflow:
+
+```text
+1. Fork the repository
+2. Create a feature/fix branch
+3. Make your changes
+4. Test your changes
+5. Update documentation if necessary
+6. Commit your changes
+7. Open a Pull Request
+```
 
 Recommended branch names:
 
@@ -56,48 +94,98 @@ feature/<name>
 fix/<name>
 docs/<name>
 refactor/<name>
+test/<name>
 ```
 
-## Commit Messages
+Examples:
 
-Use clear commit messages:
+```text
+feature/improved-monitoring
+fix/tcp-timeout
+docs/update-readme
+refactor/config-loader
+test/protocol-handling
+```
+
+---
+
+## 📝 Commit Messages
+
+Use concise and descriptive commit messages.
+
+Examples:
 
 ```text
 feat: add server monitoring
 fix: handle connection timeout
-docs: update installation guide
-refactor: improve packet handling
+docs: improve installation guide
+refactor: simplify configuration loader
 test: add protocol tests
 ```
 
-## Testing
+---
 
-Test changes only in environments you own or are authorized to test, preferably:
+## 🧪 Testing Requirements
+
+Contributors should test changes before opening a Pull Request.
+
+Use only authorized environments, such as:
 
 - Local Minecraft servers
-- Dedicated test servers
-- Development environments
-- Staging environments
+- Development servers
+- Staging servers
+- Dedicated test infrastructure
+- Systems where explicit testing permission has been granted
 
-## Security
+Do not use unrelated public servers as test targets.
 
-If you discover a security issue, avoid publicly exposing sensitive details before the issue can be investigated. Provide enough information for the maintainer to reproduce and understand the problem.
+---
 
-## Documentation
+## 🔐 Security
 
-Documentation improvements are welcome, including:
+If you discover a security issue, do not immediately publish sensitive technical details publicly.
+
+Provide the maintainer with enough information to understand and reproduce the issue while avoiding disclosure of:
+
+- Credentials
+- API keys
+- Access tokens
+- Private server information
+- Personal information
+
+---
+
+## 📚 Documentation
+
+Documentation contributions are encouraged.
+
+Useful areas include:
 
 - README
-- Installation instructions
-- Configuration documentation
+- Installation
+- Configuration
 - Troubleshooting
 - Examples
+- Architecture
+- Compatibility notes
 - Developer documentation
 
-## Maintainer
+---
 
-**DevBrezz**
+## 👥 Project Credits
 
-## License
+### L1ghtXr
 
-By contributing to this project, you agree that your contributions may be distributed under the project's MIT License.
+Original project creator and primary developer.
+
+### DevBrezz
+
+Project contributor.
+
+Community contributors are credited through their respective contributions.
+
+---
+
+## 📜 License
+
+By submitting a contribution to MCS, you agree that your contribution may be distributed under the project's MIT License.
